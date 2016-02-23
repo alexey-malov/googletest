@@ -4,6 +4,7 @@ build/
 # Visual Studio files
 *.sdf
 *.opensdf
+*.VC.opendb
 *.suo
 *.user
 _ReSharper.Caches/
