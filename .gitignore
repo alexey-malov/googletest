@@ -1,5 +1,6 @@
 # Ignore CI build directory
 build/
+_build/
 
 # Visual Studio files
 *.sdf

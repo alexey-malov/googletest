@@ -58,6 +58,11 @@
 # include <forward_list>  // NOLINT
 #endif
 
+// Disable MSVC warning: "decorated name length exceeded, name was truncated".
+#ifdef _MSC_VER
+# pragma warning(disable:4503)
+#endif
+
 namespace testing {
 
 namespace internal {
