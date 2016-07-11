@@ -58,6 +58,11 @@
 # include <forward_list>  // NOLINT
 #endif
 
+// Disable MSVC warning: "decorated name length exceeded, name was truncated".
+#ifdef _MSC_VER
+# pragma warning(disable:4503)
+#endif
+
 namespace testing {
 
 namespace internal {
@@ -613,7 +618,7 @@ TEST(MatcherCastTest, FromSameType) {
 struct ConvertibleFromAny {
   ConvertibleFromAny(int a_value) : value(a_value) {}
   template <typename T>
-  ConvertibleFromAny(const T& /*a_value*/) : value(-1) {
+  explicit ConvertibleFromAny(const T& /*a_value*/) : value(-1) {
     ADD_FAILURE() << "Conversion constructor called";
   }
   int value;
@@ -867,10 +872,11 @@ class Unprintable {
  public:
   Unprintable() : c_('a') {}
 
-  bool operator==(const Unprintable& /* rhs */) { return true; }
  private:
   char c_;
 };
+
+bool operator==(const Unprintable& /* lhs */, const Unprintable& /* rhs */) { return true; }
 
 TEST(EqTest, CanDescribeSelf) {
   Matcher<Unprintable> m = Eq(Unprintable());
